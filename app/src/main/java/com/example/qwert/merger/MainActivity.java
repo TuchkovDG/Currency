@@ -1,10 +1,12 @@
 package com.example.qwert.merger;
 
 import android.media.Image;
+import android.support.annotation.StringRes;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -28,14 +30,13 @@ public class MainActivity extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.ma_list_currency);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-//        cretList();
 
     }
 
-    // заполняем список для адаптера
-    public void creatObject(String AbbName, String fullName, Integer iconNumber){
-        currencyMains.add(new CurrencyMain(AbbName,fullName,iconNumber));
-    }
+//    // заполняем список для адаптера
+//    public void creatObject(String AbbName, String fullName, Integer iconNumber){
+//        currencyMains.add(new CurrencyMain(AbbName,fullName,iconNumber));
+//    }
 //    public void cretList(){
 //        ArrayList<String> listfullNames = new ArrayList<String>();
 //        listfullNames.add("китайский юань");
