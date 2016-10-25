@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:baselineAligned="false"
+    android:orientation="horizontal">
+
+
+    <TextView
+        android:id="@+id/ma_fullCurrency_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Unated states do"
+        android:textSize="15dp"
+        android:layout_alignBottom="@+id/ma_currency_image"
+        android:layout_toRightOf="@+id/ma_currency_image"
+        android:layout_toEndOf="@+id/ma_currency_image"
+        android:layout_marginLeft="12dp"
+        android:layout_marginStart="12dp" />
+
+    <TextView
+        android:id="@+id/ma_abbCurrency_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="USD"
+        android:textSize="25dp"
+        android:layout_above="@+id/ma_fullCurrency_name"
+        android:layout_alignLeft="@+id/ma_fullCurrency_name"
+        android:layout_alignStart="@+id/ma_fullCurrency_name" />
+
+    <ImageView
+        android:id="@+id/ma_currency_image"
+        android:src="@mipmap/ic_launcher"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+</RelativeLayout>
