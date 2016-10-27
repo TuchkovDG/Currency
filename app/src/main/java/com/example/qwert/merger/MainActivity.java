@@ -13,6 +13,7 @@ import java.util.List;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
+
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.ImageView;
@@ -29,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
     private HashMap<String, String> tmpVals;
 
     public RecyclerView recyclerView;
-
+    public LinearLayoutManager layoutManager;
 
 
     @Override
@@ -64,6 +65,9 @@ public class MainActivity extends AppCompatActivity {
         tmpVals.put("USD", "доллар США");
 
         recyclerView = (RecyclerView) findViewById(R.id.ma_list_currency);
+        layoutManager = new LinearLayoutManager(MainActivity.this);
+        recyclerView.setLayoutManager(layoutManager);
+
     }
 
     @Override
@@ -84,10 +88,9 @@ public class MainActivity extends AppCompatActivity {
             public void success(Currency currency, Response response) {
                 currency.longSname = tmpVals.get(currency.base);
                 currs.add(currency);
-
-                LinearLayoutManager layoutManager = new LinearLayoutManager(MainActivity.this);
-                recyclerView.setLayoutManager(layoutManager);
-                recyclerView.setAdapter(new MainRViewAdapter(currs,MainActivity.this));
+                if(currs.size() == 10){
+                    recyclerView.setAdapter(new MainRViewAdapter(currs, MainActivity.this));
+                }
             }
 
             @Override
