@@ -18,16 +18,16 @@ import java.util.List;
 
 public class MainRViewAdapter extends RecyclerView.Adapter<MainRViewAdapter.ViewHolder> {
 
+    public List<Currency> currs;
+    private Context context;
+    private OnRecyclerItemClickListener listener;
+
     public interface OnRecyclerItemClickListener {
         void onItemClickListener(String item, int position);
     }
 
-    private List<ArrayList<String>> list;
-    private Context context;
-    private OnRecyclerItemClickListener listener;
-
-    public MainRViewAdapter(List<ArrayList<String>> list, Context context) {
-        this.list = list;
+    public MainRViewAdapter(List<Currency> list, Context context) {
+        this.currs = list;
         this.context = context;
     }
 
@@ -40,13 +40,13 @@ public class MainRViewAdapter extends RecyclerView.Adapter<MainRViewAdapter.View
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
-        viewHolder.fullName.setText(list.get(i).get(1));
-        viewHolder.abbName.setText(list.get(i).get(0));
+        viewHolder.abbName.setText(currs.get(i).base);
+        viewHolder.fullName.setText(currs.get(i).longSname);
     }
 
     @Override
     public int getItemCount() {
-        return list.size();
+        return currs.size();
     }
 
     public void setListener(OnRecyclerItemClickListener listener) {
@@ -69,13 +69,13 @@ public class MainRViewAdapter extends RecyclerView.Adapter<MainRViewAdapter.View
 
         @Override
         public void onClick(View v) {
-            if (listener != null) {
-                int position = getAdapterPosition();
-                listener.onItemClickListener(list.get(0).get(position), position);
-            } else {
-                throw new RuntimeException("You must init OnRecyclerItemClickListener by calling " +
-                        "setListener() method.");
-            }
+//            if (listener != null) {
+//                int position = getAdapterPosition();
+//                listener.onItemClickListener(currs., position);
+//            } else {
+//                throw new RuntimeException("You must init OnRecyclerItemClickListener by calling " +
+//                        "setListener() method.");
+//            }
         }
     }
 }
