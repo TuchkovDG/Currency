@@ -2,6 +2,7 @@ package com.example.qwert.merger;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -18,12 +19,14 @@ public class MainActivity extends AppCompatActivity {
     private Currency cur;
     public List<Currency> currs;
     private HashMap<String, String> tmpVals;
+    private ListView currenciesList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        currenciesList = (ListView) findViewById(R.id.am_currencies_list);
         currs = new ArrayList<>();
 
         curr = new ArrayList<>();
@@ -59,6 +62,9 @@ public class MainActivity extends AppCompatActivity {
             cur.base = c;
             getData(cur);
         }
+
+        Adapter adapter = new Adapter(this, currs);
+        currenciesList.setAdapter(adapter);
     }
 
 
