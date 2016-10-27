@@ -42,7 +42,7 @@ public class Adapter extends ArrayAdapter {
         Currency curr = (Currency) getItem(position);
 
         holder.currName.setText(curr.base);
-        holder.currLongName.setText(curr.longSname);
+        holder.currLongName.setText(curr.sname);
         holder.currImage.setImageBitmap(BitmapFactory.decodeResource(getContext().getResources(),
                 getContext().getResources().getIdentifier(curr.base.toLowerCase(), "drawable", "com.example.qwert.merger")));
 

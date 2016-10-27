@@ -1,7 +1,10 @@
 package com.example.qwert.merger;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -15,9 +18,10 @@ import retrofit.client.Response;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static final String SELECTED_CURRENCY = "selected_currency";
+
     private List<String> curr;
     private Currency cur;
-    public List<Currency> currs;
     private HashMap<String, String> tmpVals;
     private ListView currenciesList;
 
@@ -26,10 +30,22 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        currenciesList = (ListView) findViewById(R.id.am_currencies_list);
-        currs = new ArrayList<>();
+        init();
 
+        currenciesList = (ListView) findViewById(R.id.am_currencies_list);
+        currenciesList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(MainActivity.this, CurrencyActivity.class);
+                intent.putExtra(SELECTED_CURRENCY, position); //CurrenciesList.getInstance().get(position));
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void init() {
         curr = new ArrayList<>();
+
         curr.add("EUR");
         curr.add("USD");
         curr.add("CNY");
@@ -63,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
             getData(cur);
         }
 
-        Adapter adapter = new Adapter(this, currs);
+        Adapter adapter = new Adapter(this, CurrenciesList.getInstance().getList());
         currenciesList.setAdapter(adapter);
     }
 
@@ -73,8 +89,8 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void success(Currency currency, Response response) {
-                currency.longSname = tmpVals.get(currency.base);
-                currs.add(currency);
+                currency.sname = tmpVals.get(currency.base);
+                CurrenciesList.getInstance().addValue(currency);
             }
 
             @Override
