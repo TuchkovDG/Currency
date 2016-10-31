@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(MainActivity.this, CurrencyActivity.class);
-                intent.putExtra(SELECTED_CURRENCY, position); //CurrenciesList.getInstance().get(position));
+                intent.putExtra(SELECTED_CURRENCY, position);
                 startActivity(intent);
             }
         });
@@ -103,7 +103,8 @@ public class MainActivity extends AppCompatActivity {
         String json = sp.getString(CURRENCY, "Unknown");
 
         if (!json.equals("Unknown")) {
-            Type listType = new TypeToken<List<Currency>>() {}.getType();
+            Type listType = new TypeToken<List<Currency>>() {
+            }.getType();
             CurrenciesList.getInstance().addList((List<Currency>) gson.fromJson(json, listType));
             adapter = new Adapter(MainActivity.this, CurrenciesList.getInstance().getList());
             currenciesList.setAdapter(adapter);

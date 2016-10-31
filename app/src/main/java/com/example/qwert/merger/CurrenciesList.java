@@ -40,8 +40,4 @@ public class CurrenciesList {
     public void addList(List<Currency> cur) {
         currencies = cur;
     }
-
-//    public void setRate(String base, HashMap<String, Double> tmpMap) {
-//        for()
-//    }
 }
