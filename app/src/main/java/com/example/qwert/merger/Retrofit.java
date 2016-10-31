@@ -1,5 +1,7 @@
 package com.example.qwert.merger;
 
+import java.util.List;
+
 import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.http.GET;
@@ -27,8 +29,10 @@ public class Retrofit {
         void getCurrencies(@Query("base") String currency, Callback<Currency> callback);
     }
 
-    public static void getCurrencies(Currency curr, Callback<Currency> callback) {
-        apiReferences.getCurrencies(curr.base, callback);
+    public static void getCurrencies(List<String> currencyList, Callback<Currency> callback) { //Currency curr, Callback<Currency> callback) {
+        for (String s : currencyList) {
+            apiReferences.getCurrencies(s, callback);
+        }
     }
 
 }

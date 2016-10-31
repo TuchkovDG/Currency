@@ -35,4 +35,8 @@ public class CurrenciesList {
     public void addValue(Currency currency) {
         currencies.add(currency);
     }
+
+    public void addList(List<Currency> cur) {
+        currencies = cur;
+    }
 }
