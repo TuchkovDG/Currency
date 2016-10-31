@@ -1,6 +1,7 @@
 package com.example.qwert.merger;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class CurrenciesList {
@@ -39,4 +40,8 @@ public class CurrenciesList {
     public void addList(List<Currency> cur) {
         currencies = cur;
     }
+
+//    public void setRate(String base, HashMap<String, Double> tmpMap) {
+//        for()
+//    }
 }

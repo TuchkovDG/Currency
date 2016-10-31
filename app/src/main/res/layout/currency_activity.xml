@@ -8,7 +8,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:id="@+id/container"
-        android:layout_height="150dp">
+        android:layout_height="wrap_content">
 
         <ImageView
             android:layout_width="wrap_content"
@@ -31,26 +31,28 @@
             android:text="TextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/imageView"
-            android:layout_alignRight="@+id/info_name"
-            android:layout_alignEnd="@+id/info_name"
-            android:id="@+id/info_subname" />
-
-        <TextView
-            android:text="TextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:id="@+id/info_description"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
             android:layout_below="@+id/imageView" />
+
+        <TextView
+            android:text="TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/info_subname"
+            android:layout_above="@+id/info_description"
+            android:layout_alignLeft="@+id/info_name"
+            android:layout_alignStart="@+id/info_name"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
     </RelativeLayout>
 
     <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/list_courrency_course" />
+        android:id="@+id/list_courrency_course"
+        android:layout_marginTop="10dp" />
 </LinearLayout>

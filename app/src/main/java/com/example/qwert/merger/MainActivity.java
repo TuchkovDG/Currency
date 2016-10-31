@@ -3,8 +3,8 @@ package com.example.qwert.merger;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -17,6 +17,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -29,7 +30,6 @@ public class MainActivity extends AppCompatActivity {
     public static final String SELECTED_CURRENCY = "selected_currency";
 
     private List<String> curr;
-    private Currency cur;
     private HashMap<String, String> tmpVals;
     private HashMap<String, String> tmpDescriptionVals;
     private ListView currenciesList;
@@ -41,7 +41,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        init();
         gson = new Gson();
 
         currenciesList = (ListView) findViewById(R.id.am_currencies_list);
@@ -109,12 +108,27 @@ public class MainActivity extends AppCompatActivity {
             adapter = new Adapter(MainActivity.this, CurrenciesList.getInstance().getList());
             currenciesList.setAdapter(adapter);
         } else {
+            init();
             Retrofit.getCurrencies(curr, new Callback<Currency>() {
 
                 @Override
                 public void success(Currency currency, Response response) {
                     currency.sname = tmpVals.get(currency.base);
                     currency.longSname = tmpDescriptionVals.get(currency.base);
+
+                    HashMap<String, Double> tmpMap = new HashMap<>();
+
+                    for (Map.Entry entry : currency.rates.entrySet()) {
+                        for (String str : curr) {
+                            if (entry.getKey().equals(str)) {
+                                tmpMap.put(str, (Double) entry.getValue());
+                                break;
+                            }
+                        }
+                    }
+
+                    currency.rates = tmpMap;
+
                     CurrenciesList.getInstance().addValue(currency);
                     adapter = new Adapter(MainActivity.this, CurrenciesList.getInstance().getList());
                     currenciesList.setAdapter(adapter);
