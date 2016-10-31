@@ -11,6 +11,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 import static com.example.qwert.merger.MainActivity.SELECTED_CURRENCY;
 

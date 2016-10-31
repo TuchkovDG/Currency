@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     private List<String> curr;
     private Currency cur;
     private HashMap<String, String> tmpVals;
+    private HashMap<String, String> tmpDescriptionVals;
     private ListView currenciesList;
     private Gson gson;
     Adapter adapter;
@@ -79,32 +80,49 @@ public class MainActivity extends AppCompatActivity {
         tmpVals.put("RUB", "рубль");
         tmpVals.put("THB", "таиландский бат");
         tmpVals.put("USD", "доллар США");
+
+        tmpDescriptionVals = new HashMap<>();
+        tmpDescriptionVals.put("CNY", "Cовременная денежная единица Китайской Народной Республики. Одна из основных резервных валют мира, входит в «корзину» специальных прав заимствования МВФ. Международное обозначение валюты в стандарте ISO 4217.");
+        tmpDescriptionVals.put("EUR", "Официальная валюта 19 стран «еврозоны» (Австрии, Бельгии, Германии, Греции, Ирландии, Испании, Италии, Кипра, Латвии, Литвы, Люксембурга, Мальты, Нидерландов, Португалии, Словакии, Словении, Финляндии, Франции, Эстонии).");
+        tmpDescriptionVals.put("GBP", "Национальная валюта Соединённого Королевства Великобритании и Северной Ирландии (Великобритании), включающего Англию, Шотландию, Уэльс и Северную Ирландию;");
+        tmpDescriptionVals.put("INR", "Денежная единица Индии. Состоит из 100 пайс. " +
+                "До 1916 года 1 рупия равнялась 16 английским пенсам. " +
+                "Банкноты номиналом — от 1 до 1000.");
+        tmpDescriptionVals.put("JPY", "Денежная единица Японии, одна из основных резервных валют мира. Делится на 100 сен (счётная денежная единица, в 1954 году изъята из обращения).");
+        tmpDescriptionVals.put("KRW", "Денежная единица Республики Корея. Название вона в русском языке происходит от словосочетания 원화 (произносится как вонхва), дословно: валюта Вон. В обращении находятся банкноты номиналом 1000, 5000, 10000 и 50000 вон.");
+        tmpDescriptionVals.put("PHP", "Национальная валюта Филиппин. Состоит из 100 сентаво (сентимо). Появились 1 мая 1852 года, когда Испано-Филиппинский банк выпустил «твёрдые песо»  которые вытеснили реалы, ходившие до этого на Филиппинах.");
+        tmpDescriptionVals.put("RUB", "Денежная единица Российской Федерации. Используется также на территории ряда непризнанных и частично признанных государств: Республики Абхазия, Республики Южная Осетия, Луганской Народной Республики и Донецкой Народной Республики (в первых двух случаях по соглашению с РФ).");
+        tmpDescriptionVals.put("THB", "Денежная единица Таиланда с 15 апреля 1928 года. Делится на 100 сатангов (สตางค์). Обозначение: ฿.");
+        tmpDescriptionVals.put("USD", "Денежная единица США, одна из основных резервных валют мира. 1 доллар = 100 центов. Символьное обозначение в англоязычных текстах: $.");
     }
 
     @Override
     protected void onResume() {
         super.onResume();
 
-//        SharedPreferences sp = getSharedPreferences(SHAREDPREFS, Context.MODE_PRIVATE);
-//        String json = sp.getString(CURRENCY, "Unknown");
-//
-//        if (!json.equals("Unknown")) {
-//            Type listType = new TypeToken<List<Currency>>() {}.getType();
-//            CurrenciesList.getInstance().addList((List<Currency>) gson.fromJson(json, listType));
-//        } else {
-//            for (String c : curr) {
-//                cur = new Currency();
-//                cur.base = c;
-////                getData(cur);
-//            }
+        SharedPreferences sp = getSharedPreferences(SHAREDPREFS, Context.MODE_PRIVATE);
+        String json = sp.getString(CURRENCY, "Unknown");
+
+        if (!json.equals("Unknown")) {
+            Type listType = new TypeToken<List<Currency>>() {}.getType();
+            CurrenciesList.getInstance().addList((List<Currency>) gson.fromJson(json, listType));
+            adapter = new Adapter(MainActivity.this, CurrenciesList.getInstance().getList());
+            currenciesList.setAdapter(adapter);
+        } else {
             Retrofit.getCurrencies(curr, new Callback<Currency>() {
 
                 @Override
                 public void success(Currency currency, Response response) {
                     currency.sname = tmpVals.get(currency.base);
+                    currency.longSname = tmpDescriptionVals.get(currency.base);
                     CurrenciesList.getInstance().addValue(currency);
                     adapter = new Adapter(MainActivity.this, CurrenciesList.getInstance().getList());
                     currenciesList.setAdapter(adapter);
+
+                    SharedPreferences sp1 = getSharedPreferences(SHAREDPREFS, Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sp1.edit();
+                    editor.putString(CURRENCY, gson.toJson(CurrenciesList.getInstance().getList()));
+                    editor.apply();
                 }
 
                 @Override
@@ -113,12 +131,5 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
-
-//        SharedPreferences sp1 = getSharedPreferences(SHAREDPREFS, Context.MODE_PRIVATE);
-//        SharedPreferences.Editor editor = sp1.edit();
-//        editor.putString(CURRENCY, gson.toJson(CurrenciesList.getInstance().getList()));
-//        editor.apply();
-
-
-//    }
+    }
 }
