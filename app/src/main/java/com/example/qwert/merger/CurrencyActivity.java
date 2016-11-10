@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -49,7 +50,11 @@ public class CurrencyActivity extends AppCompatActivity {
         exchangeRates.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                CurrencyItemAdapter.ViewHolder viewHolder = (CurrencyItemAdapter.ViewHolder) view.getTag();
 
+                Intent intent = new Intent(CurrencyActivity.this, CurrencyActivity.class);
+                intent.putExtra(SELECTED_CURRENCY, CurrenciesList.getInstance().getIndex(viewHolder.currName.getText().toString()));
+                startActivity(intent);
             }
         });
     }
