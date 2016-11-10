@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent1 = new Intent(MainActivity.this, FoundCurrenciesActivity.class);
                 startActivity(intent1);
-                return false;
+                return true;
             }
         });
 
