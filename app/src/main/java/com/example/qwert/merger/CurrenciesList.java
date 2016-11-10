@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class CurrenciesList {
+
     private static CurrenciesList ourInstance = new CurrenciesList();
 
     public static CurrenciesList getInstance() {
