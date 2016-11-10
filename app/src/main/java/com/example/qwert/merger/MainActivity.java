@@ -54,10 +54,19 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(MainActivity.this, CurrencyActivity.class);
-                intent.putExtra(SELECTED_CURRENCY, position);
+                intent.putExtra(SELECTED_CURRENCY, position); //CurrenciesList.getInstance().get(position));
                 startActivity(intent);
             }
         });
+        currenciesList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent1 = new Intent(MainActivity.this, FoundCurrenciesActivity.class);
+                startActivity(intent1);
+                return false;
+            }
+        });
+
 
         checkSyncDate();
     }
