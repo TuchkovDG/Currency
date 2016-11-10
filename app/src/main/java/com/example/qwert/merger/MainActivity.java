@@ -15,9 +15,12 @@ import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -28,6 +31,9 @@ public class MainActivity extends AppCompatActivity {
     public static final String SHAREDPREFS = "com.example.zer.qwert.merger";
     public static final String CURRENCY = "currency";
     public static final String SELECTED_CURRENCY = "selected_currency";
+    public static final String DATE = "date";
+
+    private static boolean isSync = false;
 
     private List<String> curr;
     private HashMap<String, String> tmpVals;
@@ -52,6 +58,8 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        checkSyncDate();
     }
 
     private void init() {
@@ -95,6 +103,25 @@ public class MainActivity extends AppCompatActivity {
         tmpDescriptionVals.put("USD", "Денежная единица США, одна из основных резервных валют мира. 1 доллар = 100 центов. Символьное обозначение в англоязычных текстах: $.");
     }
 
+    private void checkSyncDate() {
+        SharedPreferences sp = getSharedPreferences(SHAREDPREFS, Context.MODE_PRIVATE);
+        String lastSyncDate = sp.getString(DATE, "Unknown");
+        String d = String.valueOf(Calendar.getInstance().DAY_OF_YEAR);
+
+        if (lastSyncDate.equals("Unknown")) {
+            SharedPreferences.Editor editor = sp.edit();
+            editor.putString(DATE, d);
+            editor.apply();
+            isSync = true;
+        } else {
+            if (lastSyncDate.equals(d)) {
+                isSync = true;
+            } else {
+                isSync = false;
+            }
+        }
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -102,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences sp = getSharedPreferences(SHAREDPREFS, Context.MODE_PRIVATE);
         String json = sp.getString(CURRENCY, "Unknown");
 
-        if (!json.equals("Unknown")) {
+        if (!json.equals("Unknown") && isSync) {
             Type listType = new TypeToken<List<Currency>>() {
             }.getType();
             CurrenciesList.getInstance().addList((List<Currency>) gson.fromJson(json, listType));
@@ -137,7 +164,9 @@ public class MainActivity extends AppCompatActivity {
                     SharedPreferences sp1 = getSharedPreferences(SHAREDPREFS, Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = sp1.edit();
                     editor.putString(CURRENCY, gson.toJson(CurrenciesList.getInstance().getList()));
+                    editor.putString(DATE, String.valueOf(Calendar.getInstance().DAY_OF_YEAR));
                     editor.apply();
+                    isSync = true;
                 }
 
                 @Override
