@@ -33,6 +33,17 @@ public class CurrenciesList {
         return null;
     }
 
+    public int getIndex(String base) {
+        int i = 0;
+        for (Currency cur : getList()) {
+            if (cur.base.equals(base)) {
+                return i;
+            }
+            i++;
+        }
+        return 0;
+    }
+
     public void addValue(Currency currency) {
         currencies.add(currency);
     }

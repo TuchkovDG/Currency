@@ -78,7 +78,7 @@ public class CurrencyItemAdapter extends BaseAdapter {
         return rowView;
     }
 
-    private static class ViewHolder {
+    public static class ViewHolder {
         public TextView currName;
         public TextView currDescription;
         public TextView course;
