@@ -5,6 +5,7 @@ import java.util.List;
 import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.http.GET;
+import retrofit.http.Path;
 import retrofit.http.Query;
 
 public class Retrofit {
@@ -27,12 +28,18 @@ public class Retrofit {
     interface ApiReferences {
         @GET("/latest")
         void getCurrencies(@Query("base") String currency, Callback<Currency> callback);
+
+        @GET("/{date}")
+        void getCurrenciesByDate(@Path("date") String date, @Query("base") String currency, Callback<Currency> callback);
     }
 
-    public static void getCurrencies(List<String> currencyList, Callback<Currency> callback) { //Currency curr, Callback<Currency> callback) {
+    public static void getCurrencies(List<String> currencyList, Callback<Currency> callback) {
         for (String s : currencyList) {
             apiReferences.getCurrencies(s, callback);
         }
     }
 
+    public static void getCurrenciesByDate(String date, String base, Callback<Currency> callback) {
+        apiReferences.getCurrenciesByDate(date, base, callback);
+    }
 }
