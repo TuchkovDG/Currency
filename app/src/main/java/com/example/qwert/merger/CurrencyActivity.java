@@ -3,6 +3,7 @@ package com.example.qwert.merger;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -24,7 +25,7 @@ public class CurrencyActivity extends AppCompatActivity {
 
     private TextView name;
     private TextView full_name;
-    private TextView description;
+    public static TextView description;
     private ImageView imageView;
 
     private ListView exchangeRates;
@@ -65,6 +66,17 @@ public class CurrencyActivity extends AppCompatActivity {
                 return false;
             }
         });
+
+
+
+       //DataPicker
+        description.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogFragment picker = new DataPicker();
+                picker.show(getSupportFragmentManager(), "datePicker");
+            }
+        });
     }
 
     private void setDataToScreen(int index) {
@@ -72,7 +84,7 @@ public class CurrencyActivity extends AppCompatActivity {
 
         name.setText(currency.base);
         full_name.setText(currency.sname);
-        description.setText(currency.longSname);
+        //description.setText(currency.longSname);
         imageView.setImageBitmap(BitmapFactory.decodeResource(this.getResources(),
                 this.getResources().getIdentifier(currency.base.toLowerCase(), "drawable", "com.example.qwert.merger")));
 
@@ -80,4 +92,6 @@ public class CurrencyActivity extends AppCompatActivity {
 
         exchangeRates.setAdapter(currencyItemAdapter);
     }
+
+
 }
