@@ -62,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent1 = new Intent(MainActivity.this, FoundCurrenciesActivity.class);
+                intent1.putExtra(SELECTED_CURRENCY, position);
                 startActivity(intent1);
                 return true;
             }
