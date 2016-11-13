@@ -3,17 +3,13 @@ package com.example.qwert.merger;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
 
 import static com.example.qwert.merger.MainActivity.SELECTED_CURRENCY;
 
@@ -24,7 +20,7 @@ public class CurrencyActivity extends AppCompatActivity {
 
     private TextView name;
     private TextView full_name;
-    private TextView description;
+    public static TextView description;
     private ImageView imageView;
 
     private ListView exchangeRates;
@@ -62,7 +58,17 @@ public class CurrencyActivity extends AppCompatActivity {
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent1 = new Intent(CurrencyActivity.this, FoundCurrenciesActivity.class);
                 startActivity(intent1);
-                return true;
+                return false;
+            }
+        });
+
+
+        //DataPicker
+        description.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogFragment picker = new DataPicker();
+                picker.show(getSupportFragmentManager(), "datePicker");
             }
         });
     }
