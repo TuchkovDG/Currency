@@ -42,4 +42,5 @@ public class Retrofit {
     public static void getCurrenciesByDate(String date, String base, Callback<Currency> callback) {
         apiReferences.getCurrenciesByDate(date, base, callback);
     }
+
 }
