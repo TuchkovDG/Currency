@@ -30,7 +30,7 @@ public class Retrofit {
         void getCurrencies(@Query("base") String currency, Callback<Currency> callback);
 
         @GET("/{date}")
-        void getCurrenciesByDate(@Path("date") String date, @Query("base") String currency, Callback<Currency> callback);
+        void getCurrenciesByDate(@Path("date") String date, @Query("?base") String currency, Callback<Currency> callback);
     }
 
     public static void getCurrencies(List<String> currencyList, Callback<Currency> callback) {

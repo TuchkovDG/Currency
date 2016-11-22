@@ -41,6 +41,6 @@ public class DataPicker extends DialogFragment implements DatePickerDialog.OnDat
 
     @Override
     public void onDateSet(DatePicker view, int year, int month, int day) {
-        FoundCurrenciesActivity.date.setText(year + "-" + month + "-" + day);
+        FoundCurrenciesActivity.get_date.setText(year + "-" + month + "-" + day);
     }
 }

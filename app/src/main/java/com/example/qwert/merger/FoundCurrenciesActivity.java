@@ -27,13 +27,14 @@ public class FoundCurrenciesActivity extends AppCompatActivity {
 
     private TextView name;
     private TextView full_name;
-    protected static TextView date;
+    protected static TextView get_date;
     private ImageView imageView;
     private Button search;
 
     private ListView listView;
     private CurrencyItemAdapter currencyItemAdapter;
     private Currency currencyLocal;
+    private String date;
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +43,7 @@ public class FoundCurrenciesActivity extends AppCompatActivity {
 
         full_name = (TextView) findViewById(R.id.fa_fullName_text);
         name = (TextView) findViewById(R.id.fa_ABR_text);
-        date = (TextView) findViewById(R.id.fa_edit_date);
+        get_date = (TextView) findViewById(R.id.fa_edit_date);
         listView = (ListView) findViewById(R.id.fa_list_view);
         search = (Button) findViewById(R.id.fa_found_btn);
         imageView = (ImageView) findViewById(R.id.fa_icon);
@@ -57,7 +58,7 @@ public class FoundCurrenciesActivity extends AppCompatActivity {
 
         setDataToScreen(currIndex);
 
-        date.setOnClickListener(new View.OnClickListener() {
+        get_date.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DialogFragment picker = new DataPicker();
@@ -68,12 +69,13 @@ public class FoundCurrenciesActivity extends AppCompatActivity {
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                date = get_date.getText().toString();
 
-                Retrofit.getCurrenciesByDate(date.toString(), name.toString(), new Callback<Currency>() {
+                Retrofit.getCurrenciesByDate(date, name.toString(), new Callback<Currency>() {
 
                     @Override
                     public void success(Currency currency, Response response) {
-
+                        Toast.makeText(getApplicationContext(), "all done", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
