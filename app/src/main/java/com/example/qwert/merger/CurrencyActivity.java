@@ -47,12 +47,12 @@ public class CurrencyActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 CurrencyItemAdapter.ViewHolder viewHolder = (CurrencyItemAdapter.ViewHolder) view.getTag();
-
                 Intent intent = new Intent(CurrencyActivity.this, CurrencyActivity.class);
                 intent.putExtra(SELECTED_CURRENCY, CurrenciesList.getInstance().getIndex(viewHolder.currName.getText().toString()));
                 startActivity(intent);
             }
         });
+
         exchangeRates.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
@@ -60,16 +60,6 @@ public class CurrencyActivity extends AppCompatActivity {
                 intent1.putExtra(SELECTED_CURRENCY, position);
                 startActivity(intent1);
                 return false;
-            }
-        });
-
-
-        //DataPicker
-        description.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DialogFragment picker = new DataPicker();
-                picker.show(getSupportFragmentManager(), "datePicker");
             }
         });
     }

@@ -36,11 +36,11 @@ public class DataPicker extends DialogFragment implements DatePickerDialog.OnDat
     public void onStart() {
         super.onStart();
         Button set_data = ((AlertDialog) getDialog()).getButton(DialogInterface.BUTTON_POSITIVE);
-        set_data.setText("Ready");
+        set_data.setText("Готово");
     }
 
     @Override
     public void onDateSet(DatePicker view, int year, int month, int day) {
-        CurrencyActivity.description.setText(year + "-" + month + "-" + day);
+        FoundCurrenciesActivity.date.setText(year + "-" + month + "-" + day);
     }
 }

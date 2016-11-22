@@ -1,11 +1,15 @@
 package com.example.qwert.merger;
 
+import android.app.ActivityOptions;
+import android.support.v7.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.transition.Explode;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -16,17 +20,17 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
 public class MainActivity extends AppCompatActivity {
+
+//    ActionBar actionBar = getActionBar();
 
     public static final String SHAREDPREFS = "com.example.zer.qwert.merger";
     public static final String CURRENCY = "currency";
@@ -45,19 +49,22 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
         setContentView(R.layout.activity_main);
 
         gson = new Gson();
 
         currenciesList = (ListView) findViewById(R.id.am_currencies_list);
+
         currenciesList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(MainActivity.this, CurrencyActivity.class);
-                intent.putExtra(SELECTED_CURRENCY, position); //CurrenciesList.getInstance().get(position));
+                intent.putExtra(SELECTED_CURRENCY, position);
                 startActivity(intent);
             }
         });
+
         currenciesList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
@@ -67,7 +74,6 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
-
 
         checkSyncDate();
     }
@@ -125,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
                 " 1000, 5000, 10000 и 50000 вон.");
         tmpDescriptionVals.put("PHP", "Национальная валюта Филиппин. Состоит из 100 сентаво" +
                 " (сентимо). Появились 1 мая 1852 года, когда Испано-Филиппинский банк выпустил" +
-                 " «твёрдые песо»  которые вытеснили реалы, ходившие до этого на Филиппинах.");
+                " «твёрдые песо»  которые вытеснили реалы, ходившие до этого на Филиппинах.");
         tmpDescriptionVals.put("RUB", "Денежная единица Российской Федерации. Используется" +
                 " также на территории ряда государств: Республики Абхазия, Республики Южная" +
                 " Осетия, Луганской Народной Республики и Донецкой Народной Республики.");

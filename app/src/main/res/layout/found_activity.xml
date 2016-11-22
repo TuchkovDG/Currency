@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -16,25 +16,29 @@
             android:id="@+id/fa_found_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="26dp"
-            android:layout_marginStart="26dp"
-            android:layout_marginTop="69dp"
-            android:layout_toEndOf="@+id/fa_edit_date"
-            android:layout_toRightOf="@+id/fa_edit_date"
-            android:text="search" />
+            android:text="search"
+            android:layout_below="@+id/fa_fullName_text"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="48dp"
+            android:layout_marginEnd="48dp" />
 
-        <EditText
+        <TextView
             android:id="@+id/fa_edit_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_alignTop="@+id/fa_found_btn"
             android:layout_marginLeft="17dp"
             android:layout_marginStart="17dp"
             android:ems="10"
-            android:inputType="date" />
+            android:inputType="date"
+            android:layout_alignBottom="@+id/fa_found_btn"
+            android:text="Введите дату"
+            android:textSize="24sp"
+            android:layout_toLeftOf="@+id/fa_found_btn"
+            android:layout_toStartOf="@+id/fa_found_btn"
+            android:layout_alignTop="@+id/fa_found_btn" />
 
         <ImageView
             android:layout_width="wrap_content"
@@ -50,28 +54,33 @@
             android:text="TextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/fa_ABR_text"
             android:layout_alignTop="@+id/fa_icon"
-            android:layout_toRightOf="@+id/fa_icon"
-            android:layout_toEndOf="@+id/fa_icon"
-            android:layout_marginLeft="16dp"
-            android:layout_marginStart="16dp"
-            android:id="@+id/fa_ABR_text" />
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="89dp"
+            android:layout_marginStart="89dp"
+            android:layout_alignRight="@+id/fa_found_btn"
+            android:layout_alignEnd="@+id/fa_found_btn" />
 
         <TextView
             android:text="TextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/fa_fullName_text"
             android:layout_alignBottom="@+id/fa_icon"
-            android:layout_alignRight="@+id/fa_ABR_text"
-            android:layout_alignEnd="@+id/fa_ABR_text"
-            android:id="@+id/fa_fullName_text" />
+            android:layout_alignLeft="@+id/fa_ABR_text"
+            android:layout_alignStart="@+id/fa_ABR_text"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
     </RelativeLayout>
 
     <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/fa_list_view"
-        android:layout_weight="0.39" />
+        android:layout_weight="0.39"
+        android:layout_below="@+id/fa_container" />
 
 
-</LinearLayout>
+</RelativeLayout>
