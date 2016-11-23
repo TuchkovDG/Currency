@@ -27,13 +27,14 @@ public class FoundCurrenciesActivity extends AppCompatActivity {
 
     private TextView name;
     private TextView full_name;
-    protected static TextView date;
+    protected static TextView get_date;
     private ImageView imageView;
     private Button search;
 
     private ListView listView;
     private CurrencyItemAdapter currencyItemAdapter;
     private Currency currencyLocal;
+    private String date;
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,22 +43,17 @@ public class FoundCurrenciesActivity extends AppCompatActivity {
 
         full_name = (TextView) findViewById(R.id.fa_fullName_text);
         name = (TextView) findViewById(R.id.fa_ABR_text);
-        date = (TextView) findViewById(R.id.fa_edit_date);
+        get_date = (TextView) findViewById(R.id.fa_edit_date);
         listView = (ListView) findViewById(R.id.fa_list_view);
         search = (Button) findViewById(R.id.fa_found_btn);
         imageView = (ImageView) findViewById(R.id.fa_icon);
-
-//        long date = System.currentTimeMillis();
-//
-//        SimpleDateFormat sdf = new SimpleDateFormat("MMM MM dd");
-//        String dateString = sdf.format(date);
 
         Intent intent = getIntent();
         int currIndex = intent.getIntExtra(SELECTED_CURRENCY, 0);
 
         setDataToScreen(currIndex);
 
-        date.setOnClickListener(new View.OnClickListener() {
+        get_date.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DialogFragment picker = new DataPicker();
@@ -69,11 +65,11 @@ public class FoundCurrenciesActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Retrofit.getCurrenciesByDate(date.toString(), name.toString(), new Callback<Currency>() {
+                Retrofit.getCurrenciesByDate(get_date.getText().toString(), name.toString(), new Callback<Currency>() {
 
                     @Override
                     public void success(Currency currency, Response response) {
-
+                        Toast.makeText(FoundCurrenciesActivity.this, "All right", Toast.LENGTH_LONG).show();
                     }
 
                     @Override
@@ -96,23 +92,4 @@ public class FoundCurrenciesActivity extends AppCompatActivity {
 
         listView.setAdapter(currencyItemAdapter);
     }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        Retrofit.getCurrenciesByDate("2016-01-03", "USD", new Callback<Currency>() {
-
-            @Override
-            public void success(Currency currency, Response response) {
-
-            }
-
-            @Override
-            public void failure(RetrofitError error) {
-                Toast.makeText(FoundCurrenciesActivity.this, error.toString(), Toast.LENGTH_LONG).show();
-            }
-        });
-    }
-
 }
